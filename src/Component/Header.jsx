@@ -10,6 +10,11 @@ const Header = () => {
       <h1 className="text-white italic font-extrabold hover:text-purple-400">
         {aturNama}
       </h1>
+      <ul className="flex space-x-6">
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+      </ul>
     </header>
   );
 };

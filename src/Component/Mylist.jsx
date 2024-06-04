@@ -1,4 +1,10 @@
+/* eslint-disable no-unused-vars */
+import {useState} from 'react';
+
 const Mylist = () => {
+  const [comment, setComment] = useState(''); // State to store comment
+  const [selectedSong, setSelectedSong] = useState(null); // State to store selected song for comment
+
   const songs = [
     {
       id: 1,
@@ -54,10 +60,25 @@ const Mylist = () => {
     },
   ];
 
-  const handle = songs => {
+  const handleInformation = song => {
     alert(
-      `Nama Penyayi: ${songs.nama}\nNama Band: ${songs.band}\nJudul songs: ${songs.songs}`,
+      `Nama Penyanyi: ${song.nama}\nNama Band: ${song.band}\nJudul Lagu: ${song.songs}`,
     );
+  };
+
+  const handleComment = song => {
+    setSelectedSong(song);
+    const userComment = prompt('Masukkan Komentar Anda:');
+    if (!userComment) {
+      alert('Komentar tidak boleh kosong');
+    } else {
+      setComment(userComment);
+      alert(`Komentar Anda untuk lagu "${song.songs}": ${userComment}`);
+    }
+  };
+
+  const handleLike = () => {
+    alert('Ragil Menyukai Lagu Kami');
   };
 
   return (
@@ -65,8 +86,12 @@ const Mylist = () => {
       {songs.map(song => (
         <div
           key={song.id}
-          className={`group p-4 rounded ${song.bgColor} hover:bg-purple-800 hover:text-white`}>
-          <img src={song.gambar} alt={`poster ${song.songs}`} className="h-44" />
+          className={`group p-4 rounded ${song.bgColor} hover:bg-purple-800 hover:text-white flex flex-col`}>
+          <img
+            src={song.gambar}
+            alt={`poster ${song.songs}`}
+            className="h-44"
+          />
           <h3 className="text-lg font-bold mt-2">{song.songs}</h3>
           <span className="block text-gray-700 group-hover:text-white">
             {song.nama}
@@ -76,8 +101,18 @@ const Mylist = () => {
           </span>
           <button
             className="mt-2 bg-purple-700 text-white py-1 px-3 rounded-full hover:bg-white hover:text-purple-800"
-            onClick={() => handle(song)}>
-            Lihat Selengkapnya
+            onClick={() => handleInformation(song)}>
+            Informasi
+          </button>
+          <button
+            className="mt-2 bg-purple-700 text-white py-1 px-3 rounded-full hover:bg-white hover:text-purple-800"
+            onClick={handleLike}>
+            Suka
+          </button>
+          <button
+            className="mt-2 bg-purple-700 text-white py-1 px-3 rounded-full hover:bg-white hover:text-purple-800"
+            onClick={() => handleComment(song)}>
+            Komentar
           </button>
         </div>
       ))}
@@ -85,4 +120,35 @@ const Mylist = () => {
   );
 };
 
-export default Mylist;
+const Header = ({nama}) => {
+  return (
+    <header className="flex justify-between items-center p-4 bg-blue-500 text-white">
+      <h1>Daftar Lagu</h1>
+      <h2>{nama ? nama : 'Tanpa Nama'}</h2>
+      <nav>
+        <a href="#" className="mx-2">
+          Home
+        </a>
+        <a href="#" className="mx-2">
+          About
+        </a>
+        <a href="#" className="mx-2">
+          Contact
+        </a>
+      </nav>
+    </header>
+  );
+};
+
+const App = () => {
+  const nama = '';
+
+  return (
+    <div>
+      <Header nama={nama} />
+      <Mylist />
+    </div>
+  );
+};
+
+export default App;
