@@ -2,8 +2,8 @@
 import {useState} from 'react';
 
 const Mylist = () => {
-  const [comment, setComment] = useState(''); // State to store comment
-  const [selectedSong, setSelectedSong] = useState(null); // State to store selected song for comment
+  const [comment, setComment] = useState(''); 
+  const [selectedSong, setSelectedSong] = useState(null); 
 
   const songs = [
     {
